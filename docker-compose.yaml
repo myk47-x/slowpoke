@@ -1,0 +1,44 @@
+services:
+  postgres:
+
+    container_name: slowpoke_postgres
+    image: postgres@sha256:c7e1ca7c3073b56db283aea7ad65bc7f74fb65215b3d2324c933f83eae389ee6
+    restart: unless-stopped
+    user: 999:999
+
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+
+    cap_drop:
+      - all
+
+    security_opt: 
+      - no-new-privileges
+
+    tmpfs:
+      - /tmp/
+
+    shm_size: 1g
+    mem_limit: 2g
+    cpus: 2
+
+    networks:
+      - frontend
+      - backend
+
+    ports:
+      - "5432:5432"
+
+volumes:
+  postgres:
+
+networks:
+  frontend:
+
+  backend:
+    internal: true
+
+
+
