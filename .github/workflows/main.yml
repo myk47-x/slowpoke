@@ -3,6 +3,7 @@ name: Bandit Scan
 on:
   push:
     branches: ["main"]
+  workflow_dispatch:
 
 jobs:
   scan:
@@ -10,6 +11,7 @@ jobs:
     permissions:
       security-events: write
       contents: read
+      actions: read
 
     steps:
 
