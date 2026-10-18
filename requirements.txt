@@ -1,0 +1,4 @@
+beautifulsoup4==4.15.0
+dotenv==0.9.9
+httpx==0.28.1
+lxml==6.1.3

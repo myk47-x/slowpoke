@@ -1,0 +1,30 @@
+import httpx
+import json
+
+from .config import *
+from dotenv import set_key
+
+class NewClient:
+
+    def __init__(self):
+        self.client = httpx.Client(timeout=10)
+
+
+    def authenticate(self,url): #, client_id, client_secret, email, password):
+        data = {
+            "grant_type" : "password",
+            "client_id" : GLPI_CLIENT_ID,
+            "client_secret" : GLPI_CLIENT_SECRET,
+            "username" : GLPI_EMAIL,
+            "password" : GLPI_PASSWORD,
+            "scope" : "api email user"
+        }
+        response = self.client.post(url, data=data)
+        set_key(".env","BEARER",response.json()["access_token"])
+
+
+    def get(self,url):
+        headers ={
+            "Authorization" : f"Bearer {os.environ["BEARER"]}"
+        }
+        response = self.client.get(url, headers=headers).json()

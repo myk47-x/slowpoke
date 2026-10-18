@@ -1,0 +1,11 @@
+import os
+from dotenv import load_dotenv, set_key
+
+load_dotenv()
+
+GLPI_URL = os.getenv("GLPI_URL")
+GLPI_CLIENT_ID = os.getenv("GLPI_CLIENT_ID")
+GLPI_CLIENT_SECRET = os.getenv("GLPI_CLIENT_SECRET")
+GLPI_EMAIL= os.getenv("GLPI_EMAIL")
+GLPI_PASSWORD= os.getenv("GLPI_PASSWORD")
+
