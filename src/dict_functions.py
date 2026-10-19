@@ -7,3 +7,4 @@ def get_team(dictionary):
     for i in dictionary["team"]:
         if i ["role"] == "assigned" and i["type"] == "Group":
             return i["name"]
+

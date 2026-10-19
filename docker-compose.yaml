@@ -20,6 +20,9 @@ services:
     tmpfs:
       - /tmp/
 
+    volumes:
+      - postgres:/var/lib/postgresql
+
     shm_size: 1g
     mem_limit: 2g
     cpus: 2

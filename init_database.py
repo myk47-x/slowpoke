@@ -83,6 +83,34 @@ def load_enrollments(base_client: NewClient):
     print(f"{created_enrollments} enrollments created")
 
 
+def load_followups(base_client: NewClient):
+
+    created_followups: int = 0
+    query = Ticket.select()
+    for ticket in query:
+        req = base_client.get(f"{GLPI_URL}Assistance/Ticket/{ticket.ticket}"
+        "/Timeline/Followup")
+
+        for i in req:
+            followups = {
+                "ticket" : int(i["item"]["items_id"]),
+                "followup" : i["item"]["id"] ,
+                "followup_user" : i["item"]["user"]["id"],
+                "followup_content" : html_to_text(i["item"]["content"]) 
+            }
+            try:
+                followup, created = Followup.get_or_create(**followups)
+                if created:
+                    created_followups += 1
+            except IntegrityError as e:
+                print("Invalid followup data", e)
+            except Exception as e:
+                print("Unknow followup error", e)
+    print(f"{created_followups} created followups")
+
+
+
+
 with NewClient() as base_client:
 
     base_client.authenticate(f"{GLPI_URL}token")
@@ -91,3 +119,4 @@ with NewClient() as base_client:
     load_users(base_client)
     load_open_tickets(base_client)
     load_enrollments(base_client)
+    load_followups(base_client)
