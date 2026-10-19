@@ -4,7 +4,7 @@ import peewee
 from src.config import *
 from src.glpi_session import *
 from src.parse_html import *
-
+from src.dict_functions import *
 
 slowpoke_database.connect()
 slowpoke_database.create_tables([User, Ticket, Enrolled, Solution, Followup])
@@ -70,8 +70,8 @@ def load_enrollments(base_client: NewClient):
             enrolled, created = Enrolled.get_or_create(
                 ticket = int(i["id"]),
                 enrolled_requester = int(i["user_recipient"]["id"]),
-                enrolled_technician = 744
-                enrolled_team = "Teste"
+                enrolled_technician = get_technician(i),
+                enrolled_team = get_team(i)
             )
             if created:
                 created_enrollments += 1
