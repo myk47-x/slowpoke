@@ -23,8 +23,10 @@ class NewClient:
         set_key(".env","BEARER",response.json()["access_token"])
 
 
-    def get(self,url):
+    def get(self,url, **kw):
         headers ={
-            "Authorization" : f"Bearer {os.environ["BEARER"]}"
+            "Authorization" : f"Bearer {os.environ["BEARER"]}",
         }
-        response = self.client.get(url, headers=headers).json()
+        params = kw
+        response = self.client.get(url, headers=headers, params=params).json()
+        return response
