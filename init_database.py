@@ -25,18 +25,18 @@ def load_users(base_client: NewClient):
                 created_users += 1
 
         except IntegrityError as e:
-            print("Invalid data ", e)
+            print("Invalid user data ", e)
 
         except Exception as e:
-            print("Unknow error")
+            print("Unknow error getting user")
 
     print(f"{created_users} created users")
 
 
 def load_open_tickets(base_client: NewClient):
     params = {"limit" : INIT_TICKETS,
-              "filter" : "status.id!=6"
-              }
+              "filter" : "status.id!=6;is_deleted==false"}
+
     req = base_client.get(f"{GLPI_URL}Assistance/Ticket", **params)
     created_tickets: int = 0
     for i in req:
@@ -50,11 +50,37 @@ def load_open_tickets(base_client: NewClient):
                 created_tickets += 1
 
         except IntegrityError as e:
-            print("Invalid data ", e)
+            print("Invalid ticket data ", e)
 
         except Exception as e:
-            print("Unknow error")
+            print("Unknow error getting ticket", e)
     print(f"{created_tickets} created tickets")
+
+
+def load_enrollments(base_client: NewClient):
+    params = {
+        "limit" : INIT_ENROLLED,
+        "filter" : "status.id!=6;is_deleted==false"
+    }
+
+    req = base_client.get(f"{GLPI_URL}Assistance/Ticket", **params)
+    created_enrollments: int = 0
+    for i in req:
+        try:
+            enrolled, created = Enrolled.get_or_create(
+                ticket = int(i["id"]),
+                enrolled_requester = int(i["user_recipient"]["id"]),
+                enrolled_technician = 744
+                enrolled_team = "Teste"
+            )
+            if created:
+                created_enrollments += 1
+        except IntegrityError as e:
+            print("Invalid enrollment data", e)
+
+        except Exception as e:
+            print("Unkow enrollment error", e)
+    print(f"{created_enrollments} enrollments created")
 
 
 with NewClient() as base_client:
@@ -64,4 +90,4 @@ with NewClient() as base_client:
     
     load_users(base_client)
     load_open_tickets(base_client)
-
+    load_enrollments(base_client)
