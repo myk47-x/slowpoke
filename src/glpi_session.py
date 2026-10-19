@@ -9,6 +9,11 @@ class NewClient:
     def __init__(self):
         self.client = httpx.Client(timeout=10)
 
+    def __enter__(self):
+        return self
+
+    def __exit__(self, exc_type, exc_value, traceback):
+        self.client.close()
 
     def authenticate(self,url): #, client_id, client_secret, email, password):
         data = {
@@ -30,3 +35,4 @@ class NewClient:
         params = kw
         response = self.client.get(url, headers=headers, params=params).json()
         return response
+
