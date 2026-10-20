@@ -1,5 +1,10 @@
+"""Load client and database configurations
+
+INIT variables defines how much data will be queried by init database script
+"""
+
 import os
-from dotenv import load_dotenv, set_key
+from dotenv import load_dotenv
 
 load_dotenv()
 

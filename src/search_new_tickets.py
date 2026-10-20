@@ -1,7 +1,7 @@
 from .config import GLPI_URL
 import os
-from .parse_html import *
-from .models import *
+from .parse_html import html_to_text
+from .models import Ticket
 
 
 def escavate_tickets(client):
@@ -26,4 +26,3 @@ def escavate_tickets(client):
             print("insert error on tickets", e)
 
     print(f"{created_tickets} created new tickets")
-
