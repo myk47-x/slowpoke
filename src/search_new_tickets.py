@@ -4,12 +4,9 @@ from .parse_html import html_to_text
 from .models import Ticket
 
 
-def escavate_tickets(client):
-    params = {
-        "sort" : "id:desc",
-        "limit" : 20
-    }
-    req = client.get(f"{GLPI_URL}Assistance/Ticket", **params)
+def escavate_tickets(client, params=None, notify=False):
+
+    req = client.get(f"{GLPI_URL}Assistance/Ticket", params)
     created_tickets: int = 0
     for i in req:
         try:
@@ -21,7 +18,9 @@ def escavate_tickets(client):
             )
             if created:
                 created_tickets += 1
-                #  notify
+                #if notify==True:
+                    # notify()
+
         except Exception as e:
             print("insert error on tickets", e)
 

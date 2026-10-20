@@ -10,7 +10,7 @@ import peewee
 with NewClient() as base_client:
 
     base_client.authenticate()
-    escavate_tickets(base_client)
+    escavate_tickets(base_client,{"limit" : 300, "sort" : "id:asc"})
     escavate_users(base_client)
 
 

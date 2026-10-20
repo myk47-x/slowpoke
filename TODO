@@ -3,3 +3,8 @@ remove functions from init
 they should be implemented on their own modules
 
 call them on init with special params only
+
+----------------------------------------------
+
+partially done, next step is move load_enrollments and load_followups to modules
+

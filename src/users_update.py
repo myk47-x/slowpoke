@@ -2,12 +2,8 @@ from .config import GLPI_URL
 from .models import User
 
 
-def escavate_users(client):
-    params = {
-        "sort" : "id:desc",
-        "limit" : 20
-    }
-    req = client.get(f"{GLPI_URL}Administration/User", **params)
+def escavate_users(client, params=None, notify=False): #params are not mandatory
+    req = client.get(f"{GLPI_URL}Administration/User", params)
     created_users: int = 0
     for i in req:
         try:
@@ -19,7 +15,8 @@ def escavate_users(client):
             )
             if created:
                 created_users += 1
-                # notify()
+                # if notify==True:
+                    # notify()
         except Exception as e:
             print("error on new user flow", e)
     print(f"{created_users} created users")

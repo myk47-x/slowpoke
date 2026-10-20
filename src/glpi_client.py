@@ -47,15 +47,13 @@ class NewClient:
         set_key(".env","BEARER",response.json()["access_token"])
         load_dotenv(override=True) # rewrites Bearer value on .env
 
-    def get(self, url: str, **kw: Any):
+    def get(self, url: str, params: dict):
         """Do a basic authenticated http get request with the client,
         needs url arg and accepts multiple params via function args
         """
         headers ={
             "Authorization" : f"Bearer {os.environ["BEARER"]}",
         }
-
-        params = kw
         response = self.client.get(url, headers=headers, params=params)
         return response.json() # turns the response into dict or list of dicts
 
