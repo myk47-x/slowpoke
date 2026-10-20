@@ -1,15 +1,13 @@
-from src.glpi_session import *
+from src.glpi_client import *
 from dotenv import load_dotenv
 from src.search_new_tickets import escavate_tickets
-
+from src.config import GLPI_URL
 import peewee
 
 
 with NewClient() as base_client:
 
-    base_client.authenticate(f"{GLPI_URL}token")
-    load_dotenv(override=True)
-
+    base_client.authenticate()
     escavate_tickets(base_client)
 
 

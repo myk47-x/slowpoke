@@ -2,7 +2,7 @@ from src.models import *
 import httpx
 import peewee
 from src.config import *
-from src.glpi_session import *
+from src.glpi_client import *
 from src.parse_html import *
 from src.dict_functions import *
 
@@ -28,7 +28,7 @@ def load_users(base_client: NewClient):
             print("Invalid user data ", e)
 
         except Exception as e:
-            print("Unknow error getting user")
+            print("Unknown error getting user")
 
     print(f"{created_users} created users")
 
@@ -53,7 +53,7 @@ def load_open_tickets(base_client: NewClient):
             print("Invalid ticket data ", e)
 
         except Exception as e:
-            print("Unknow error getting ticket", e)
+            print("Unknown error getting ticket", e)
     print(f"{created_tickets} created tickets")
 
 
@@ -79,7 +79,7 @@ def load_enrollments(base_client: NewClient):
             print("Invalid enrollment data", e)
 
         except Exception as e:
-            print("Unkow enrollment error", e)
+            print("Unknown enrollment error", e)
     print(f"{created_enrollments} enrollments created")
 
 
@@ -105,7 +105,7 @@ def load_followups(base_client: NewClient):
             except IntegrityError as e:
                 print("Invalid followup data", e)
             except Exception as e:
-                print("Unknow followup error", e)
+                print("Unknown followup error", e)
     print(f"{created_followups} created followups")
 
 
@@ -113,8 +113,7 @@ def load_followups(base_client: NewClient):
 
 with NewClient() as base_client:
 
-    base_client.authenticate(f"{GLPI_URL}token")
-    load_dotenv(override=True)
+    base_client.authenticate()
     
     load_users(base_client)
     load_open_tickets(base_client)
