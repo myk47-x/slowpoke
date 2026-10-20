@@ -4,12 +4,13 @@ from src.search_new_tickets import escavate_tickets
 
 import peewee
 
-glpi  = NewClient()
 
-req = glpi.authenticate("https://ti.adubosreal.com.br/api.php/v2.3/token")
-load_dotenv(override=True)
+with NewClient() as base_client:
 
-print(escavate_tickets(glpi))
+    base_client.authenticate(f"{GLPI_URL}token")
+    load_dotenv(override=True)
+
+    escavate_tickets(base_client)
 
 
 

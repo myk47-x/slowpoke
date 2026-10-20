@@ -1,11 +1,29 @@
 from .config import GLPI_URL
 import os
+from .parse_html import *
+from .models import *
 
-def escavate_tickets(cli):
-    headers = {
-            "Authorization" : f"Bearer {os.environ["BEARER"]}"
-    }
+
+def escavate_tickets(client):
     params = {
-        "sort" : "id:desc" 
+        "sort" : "id:desc",
+        "limit" : 20
     }
-    return cli.client.get(f"{GLPI_URL}Assistance/Ticket", headers=headers,params=params).json()[0]
+    req = client.get(f"{GLPI_URL}Assistance/Ticket", **params)
+    created_tickets: int = 0
+    for i in req:
+        try:
+            ticket, created = Ticket.get_or_create(
+                ticket = int(i["id"]), 
+                defaults ={"ticket_title" : str.title(i["name"]),
+                           "ticket_description" : html_to_text(i["content"])
+                           }
+            )
+            if created:
+                created_tickets += 1
+                #  notify
+        except Exception as e:
+            print("insert error on tickets", e)
+
+    print(f"{created_tickets} created new tickets")
+
