@@ -7,6 +7,7 @@ from .config import (
     POSTGRES_PORT
 )
 
+
 slowpoke_database = PostgresqlDatabase(
         POSTGRES_DB,
         user = POSTGRES_USER,

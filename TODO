@@ -1,0 +1,5 @@
+remove functions from init
+
+they should be implemented on their own modules
+
+call them on init with special params only

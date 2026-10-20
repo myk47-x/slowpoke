@@ -6,6 +6,7 @@ INIT variables defines how much data will be queried by init database script
 import os
 from dotenv import load_dotenv
 
+
 load_dotenv()
 
 GLPI_URL = os.getenv("GLPI_URL")

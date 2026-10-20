@@ -1,6 +1,8 @@
 from src.glpi_client import *
 from dotenv import load_dotenv
 from src.search_new_tickets import escavate_tickets
+from src.users_update import escavate_users
+
 from src.config import GLPI_URL
 import peewee
 
@@ -9,7 +11,7 @@ with NewClient() as base_client:
 
     base_client.authenticate()
     escavate_tickets(base_client)
-
+    escavate_users(base_client)
 
 
 

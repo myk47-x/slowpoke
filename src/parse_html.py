@@ -1,3 +1,4 @@
+"""Basic function to remove html tags GLPI response fields"""
 import re
 from bs4 import BeautifulSoup
 

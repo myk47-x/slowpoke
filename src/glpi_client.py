@@ -15,6 +15,7 @@ from .config import GLPI_CLIENT_ID, GLPI_CLIENT_SECRET, GLPI_EMAIL, GLPI_PASSWOR
 from dotenv import set_key, load_dotenv
 from typing import Any
 
+
 class NewClient:
 
     def __init__(self):
@@ -29,9 +30,9 @@ class NewClient:
     def authenticate(self): 
         """Do post request to GLPI token endpoint to receive Bearer header
 
-        configuration values should be defined in .env file
+        before use the variables should be inserted into .env file
 
-        the generated bearer token is stored is also stored in .env
+        the generated bearer token is also stored in .env
         """
         data = {
             "grant_type" : "password",
@@ -41,6 +42,7 @@ class NewClient:
             "password" : GLPI_PASSWORD,
             "scope" : "api email user"
         }
+
         response = self.client.post(f"{GLPI_URL}token", data=data)
         set_key(".env","BEARER",response.json()["access_token"])
         load_dotenv(override=True) # rewrites Bearer value on .env
@@ -52,6 +54,7 @@ class NewClient:
         headers ={
             "Authorization" : f"Bearer {os.environ["BEARER"]}",
         }
+
         params = kw
         response = self.client.get(url, headers=headers, params=params)
         return response.json() # turns the response into dict or list of dicts
