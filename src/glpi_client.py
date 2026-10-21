@@ -11,12 +11,12 @@ __enter__ and __exited__ implemented to context manager use
 import httpx
 import json
 import os
-from .config import GLPI_CLIENT_ID, GLPI_CLIENT_SECRET, GLPI_EMAIL, GLPI_PASSWORD, GLPI_URL
+from src.config.settings import GLPI_CLIENT_ID, GLPI_CLIENT_SECRET, GLPI_EMAIL, GLPI_PASSWORD, GLPI_URL
 from dotenv import set_key, load_dotenv
 from typing import Any
 
 
-class NewClient:
+class GlpiClient:
 
     def __init__(self):
         self.client = httpx.Client(timeout=10)

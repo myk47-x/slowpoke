@@ -1,7 +1,7 @@
-from .config import GLPI_URL
+from src.config.settings import GLPI_URL
 import os
-from .parse_html import html_to_text
-from .models import Ticket
+from src.utils.parse_html import html_to_text
+from src.config.models import Ticket
 
 
 def escavate_tickets(client, params=None, notify=False):

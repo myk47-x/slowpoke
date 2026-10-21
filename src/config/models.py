@@ -1,5 +1,5 @@
 from peewee import *
-from .config import (
+from src.config.settings import (
     POSTGRES_USER,
     POSTGRES_PASSWORD,
     POSTGRES_DB,

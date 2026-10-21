@@ -6,12 +6,13 @@ from src.users_update import escavate_users
 from src.config import GLPI_URL
 import peewee
 
+if __name__ == "__main__":
 
-with NewClient() as base_client:
-
-    base_client.authenticate()
-    escavate_tickets(base_client,{"limit" : 300, "sort" : "id:asc"})
-    escavate_users(base_client)
+    with GlpiClient() as client:
+        
+        client.authenticate()
+        escavate_tickets(base_client,{"limit" : 300, "sort" : "id:asc"})
+        escavate_users(base_client)
 
 
 

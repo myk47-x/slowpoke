@@ -1,6 +1,6 @@
-from .config import GLPI_URL
-from .models import Ticket, Followup
-from .parse_html import html_to_text
+from src.config.settings import GLPI_URL
+from src.config.models import Ticket, Followup
+from src.utils.parse_html import html_to_text
 
 def escavate_followups(client, params=None, notify=False):
 

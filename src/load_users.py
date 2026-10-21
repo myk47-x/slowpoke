@@ -1,5 +1,5 @@
-from .config import GLPI_URL
-from .models import User
+from src.config.settings import GLPI_URL
+from src.config.models import User
 
 
 def escavate_users(client, params=None, notify=False): #params are not mandatory

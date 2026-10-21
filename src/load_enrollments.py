@@ -1,6 +1,6 @@
-from src.models import Enrolled
-from .config import GLPI_URL
-from .parse_dict import get_technician, get_team
+from src.config.models import Enrolled
+from src.config.settings import GLPI_URL
+from src.utils.parse_dict import get_technician, get_team
 
 
 def escavate_enrollments(client, params=None, notify=False):
